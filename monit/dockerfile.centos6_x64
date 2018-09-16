@@ -1,0 +1,11 @@
+FROM centos:6.10 as monit_centos6_x64
+COPY monit_centos.sh /tmp
+RUN yum install -y \
+	gcc \
+	pam-devel.x86_64 \
+	openssl-devel.x86_64 \
+	rpm-build \
+	rpmdevtools \
+	flex \
+	bison \
+&& yum clean all

@@ -1,0 +1,18 @@
+FROM i386/ubuntu:14.04 as monit_ubuntu14_x86
+ARG DEBIAN_FRONTEND=noninteractive
+COPY *_ubuntu.sh /tmp/
+RUN apt-get update && apt-get install -y \
+	build-essential \
+	fakeroot \
+	devscripts \
+	dh-autoreconf \
+	bison \
+	flex \
+	ruby \
+	ruby-dev \
+	wget \
+&& apt-get build-dep -y monit \
+&& apt-get install -y \
+	dh-autoreconf \
+&& rm -rf /var/lib/apt/lists/* \
+; gem install --no-rdoc --no-ri fpm
