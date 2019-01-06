@@ -1,0 +1,5 @@
+FROM ubuntu:latest AS picluster_client
+RUN apt-get update && \
+    apt-get clean && \
+    apt-get autoremove --purge && \
+    rm -rf /var/cache/apt/archives

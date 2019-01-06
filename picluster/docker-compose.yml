@@ -1,0 +1,12 @@
+version: "3"
+services:
+  master:
+    build:
+      context: ./master
+      dockerfile: dockerfile
+    image: picluster_master
+  client:
+    build:
+      context: ./client
+      dockerfile: dockerfile
+    image: picluster_client

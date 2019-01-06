@@ -3,7 +3,8 @@
 #    yum clean all && \
 #    rm -rf /var/cache/yum
 FROM alpine:latest AS ansible_client
+COPY ssh_copy.sh /tmp
 RUN apk update && \
-    apk add --no-cache python && \
+    apk add --no-cache python openssh-client && \
     rm -rf /tmp/* && \
     rm -rf /var/cache/apk/*
