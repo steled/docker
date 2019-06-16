@@ -1,13 +1,37 @@
+#Inspired by:
+# https://medium.com/@tech_phil/running-ansible-inside-docker-550d3bb2bdff
+# https://ruleoftech.com/2017/dockerizing-all-the-things-running-ansible-inside-docker-container
+
+
+#Usage:
+# docker build --tag=ansible_master .
+# docker run --rm -itd ansible_master
+# docker ps -a
+# docker exec -it <CONTAINER_ID> /bin/bash
+# docker stop <CONTAINER_ID>
+# docker run --rm -it ansible_master --version
+# docker run --rm -it -v $(pwd):/ansible/playbooks ansible_master test.yml
+# docker run --rm -it -v D:/Repositories/docker/Ansible/master:/ansible/playbooks ansible_master test.yml
+
 #FROM centos:7 AS ansible_master
 #RUN yum -y --setopt=tsflags=nodocs update && \
 #    yum -y --setopt=tsflags=nodocs install ansible && \
 #    yum clean all && \
 #    rm -rf /var/cache/yum
-FROM alpine:latest AS ansible_master
-RUN apk update && \
-    apk add --no-cache ansible openssh && \
-    rm -rf /tmp/* && \
-    rm -rf /var/cache/apk/* && \
-    ssh-keygen -t rsa -b 4096 -f /root/.ssh/id_rsa -N "P@ssw0rd!" && \
-    ssh-keygen -A
-CMD ["/usr/sbin/sshd", "-D"]
+
+#FROM alpine:latest AS ansible_master
+#RUN apk update && \
+#    apk add --no-cache ansible openssh && \
+#    rm -rf /tmp/* && \
+#    rm -rf /var/cache/apk/* && \
+#    ssh-keygen -t rsa -b 4096 -f /root/.ssh/id_rsa -N "P@ssw0rd!" && \
+#    ssh-keygen -A
+#CMD ["/usr/sbin/sshd", "-D"]
+
+FROM python:3.8-rc AS ansible_master
+RUN pip install --user ansible
+ENV PATH="$PATH:/root/.local/bin"
+
+WORKDIR /ansible/playbooks
+
+ENTRYPOINT ["ansible-playbook"]
