@@ -5,13 +5,14 @@
 
 #Usage:
 # docker build --tag=ansible_master .
-# docker run --rm -itd ansible_master
+# docker run --rm -itd --name ansible_master ansible_master
 # docker ps -a
-# docker exec -it <CONTAINER_ID> /bin/bash
-# docker stop <CONTAINER_ID>
-# docker run --rm -it ansible_master --version
-# docker run --rm -it -v $(pwd):/ansible/playbooks ansible_master test.yml
-# docker run --rm -it -v D:/Repositories/docker/Ansible/master:/ansible/playbooks ansible_master test.yml
+# docker exec -it ansible_master /bin/bash
+# docker stop ansible_master
+# docker run --rm -itd --name ansible_master ansible_master --version
+# docker run --rm -itd --name ansible_master -v $(pwd):/ansible/playbooks ansible_master test.yml
+# docker run --rm -itd --name ansible_master -v D:\Repositories\docker\Ansible\master:/ansible/playbooks ansible_master test.yml
+# docker run --rm -it --name ansible_master -v D:\Repositories\docker\Ansible\master\test1.id_rsa:/root/.ssh/id_rsa -v D:\Repositories\docker\Ansible\master:/ansible/playbooks ansible_master test.yml -i inventory
 
 #FROM centos:7 AS ansible_master
 #RUN yum -y --setopt=tsflags=nodocs update && \
