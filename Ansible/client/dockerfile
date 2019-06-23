@@ -4,7 +4,7 @@
 #Usage:
 # docker build --tag=ansible_client .
 # docker run --rm -d -p 2222:22 --name ansible_client ansible_client
-# docker run --rm -d -p 2222:22 --name ansible_client -v D:\Repositories\docker\Ansible\client\test1.id_rsa.pub:/home/ansible/.ssh/authorized_keys ansible_client
+# docker run --rm -d -p 2222:22 --name ansible_client -v D:\Repositories\docker\Ansible\client\id_rsa.pub:/home/ansible/.ssh/authorized_keys ansible_client
 # docker ps -a
 # docker exec -it ansible_client /bin/bash
 # docker stop ansible_client

@@ -1,8 +1,18 @@
 ---
 
 - hosts: all
+  remote_user: ansible
   gather_facts: false
   tasks:
     - name: Display the config
       debug:
         var: inventory_hostname
+    - name: Connection test
+      local_action: shell ssh ansible@{{ inventory_hostname }} "echo success"
+      register: ansible_enabled
+    - debug: msg="{{ansible_enabled.stdout}}"
+    - name: Create a directory
+      file:
+        path: /home/ansible/test
+        state: directory
+        mode: '0755'

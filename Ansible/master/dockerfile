@@ -12,7 +12,8 @@
 # docker run --rm -it --name ansible_master ansible_master --version
 # docker run --rm -it --name ansible_master -v $(pwd):/ansible/playbooks ansible_master test.yml
 # docker run --rm -it --name ansible_master -v D:\Repositories\docker\Ansible\master:/ansible/playbooks ansible_master test.yml
-# docker run --rm -it --name ansible_master -v D:\Repositories\docker\Ansible\master\test1.id_rsa:/root/.ssh/id_rsa -v D:\Repositories\docker\Ansible\master:/ansible/playbooks ansible_master test.yml -i inventory
+# docker run --rm -it --name ansible_master -v D:\Repositories\docker\Ansible\master\id_rsa:/root/.ssh/id_rsa ansible_master
+# docker run --rm -it --name ansible_master -v D:\Repositories\docker\Ansible\master\id_rsa:/root/.ssh/id_rsa -v D:\Repositories\docker\Ansible\master:/ansible/playbooks ansible_master test.yml -i inventory
 
 #FROM centos:7 AS ansible_master
 #RUN yum -y --setopt=tsflags=nodocs update && \
@@ -33,6 +34,10 @@ FROM python:3.8-rc AS ansible_master
 RUN pip install --user ansible
 ENV PATH="$PATH:/root/.local/bin"
 
+RUN mkdir -p /ansible/playbooks
 WORKDIR /ansible/playbooks
+
+ENV ANSIBLE_HOST_KEY_CHECKING false
+ENV ANSIBLE_RETRY_FILES_ENABLED false
 
 ENTRYPOINT ["ansible-playbook"]
