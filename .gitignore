@@ -1,1 +1,5 @@
 make/go1.10.1.linux-amd64.tar.gz
+ci_cd/gitea/gitea
+ci_cd/gitea/mysql
+Ansible/client/id_rsa.pub
+Ansible/master/id_rsa
